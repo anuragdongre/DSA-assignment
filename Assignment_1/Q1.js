@@ -41,3 +41,5 @@ const target = 9;
 
 const result = twoSum(nums, target);
 console.log(result); // Output: [0, 1]
+
+
