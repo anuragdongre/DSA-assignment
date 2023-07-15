@@ -1,0 +1,59 @@
+class Node {
+    constructor(data) {
+      this.data = data;
+      this.next = null;
+    }
+  }
+  
+  function reverseAlternateKNodes(head, k) {
+    let current = head;
+    let next = null;
+    let prev = null;
+    let count = 0;
+  
+    // Reverse the first k nodes
+    while (current !== null && count < k) {
+      next = current.next;
+      current.next = prev;
+      prev = current;
+      current = next;
+      count++;
+    }
+  
+    // Skip the next k nodes
+    count = 0;
+    while (current !== null && count < k - 1) {
+      current = current.next;
+      count++;
+    }
+  
+    // Recursively reverse the alternate k nodes
+    if (current !== null) {
+      current.next = reverseAlternateKNodes(current.next, k);
+    }
+  
+    return prev; // New head of the modified sublist
+  }
+  
+  // Example usage:
+  // LinkedList: 1->2->3->4->5->6->7->8->9->null
+  let head = new Node(1);
+  head.next = new Node(2);
+  head.next.next = new Node(3);
+  head.next.next.next = new Node(4);
+  head.next.next.next.next = new Node(5);
+  head.next.next.next.next.next = new Node(6);
+  head.next.next.next.next.next.next = new Node(7);
+  head.next.next.next.next.next.next.next = new Node(8);
+  head.next.next.next.next.next.next.next.next = new Node(9);
+  
+  let k = 3;
+  head = reverseAlternateKNodes(head, k);
+  
+  // Print the modified linked list
+  let curr = head;
+  while (curr !== null) {
+    console.log(curr.data);
+    curr = curr.next;
+  }
+  
